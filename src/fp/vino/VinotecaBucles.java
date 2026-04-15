@@ -79,6 +79,66 @@ public class VinotecaBucles implements Vinoteca{
 	public String toString() {
 		return String.format("Num.vinos: %d\n", this.vinos.size());
 	}
+
+	@Override
+	public Integer calcularNumeroVinosDePais(String pais) {
+		Integer i=0;
+		for (Vino v:vinos) {
+			if(v.pais().equals(pais)) {
+				i=i+1;
+			}
+		}
+		return i;
+	}
+
+	@Override
+	public Collection<Vino> obtenerVinosRangoPuntos(Integer minimoPuntos, Integer maximoPuntos) {
+		Checkers.check("el limite inferior debe ser menor o igual al superior",minimoPuntos<=maximoPuntos);
+		Set<Vino> Vinos=new HashSet<Vino>();
+		for(Vino v:vinos) {
+			if(minimoPuntos<=v.puntos()&&(v.puntos()<=maximoPuntos)) {
+				Vinos.add(v);
+			}
+		}
+		return Vinos;
+	}
+
+	@Override
+	public Integer calcularNumeroDeVinosDePaisConPuntuacionSuperior(String pais, Integer umbralPuntos) {
+		Integer i=0;
+		for(Vino v:vinos) {
+			if(pais.equals(v.pais())) {
+				if(v.puntos()>umbralPuntos) {
+					i=i+1;
+				}
+			}
+		}
+		return i;
+	}
+
+	@Override
+	public Set<Vino> obtenerVinosBaratos(Double precio) {
+		Set<Vino> Vinos=new HashSet<Vino>();
+		for(Vino v:vinos) {
+			if(v.precio()<precio) {
+				Vinos.add(v);
+			}
+		}
+		return Vinos;
+	}
+
+	@Override
+	public Boolean existeVinoDeUvaenRegion(String uva, String region) {
+		Boolean res=false;
+		for(Vino v:vinos) {
+			if(v.region().equals(region)) {
+				if(v.uva().equals(uva)) {
+					res=true;
+				}
+			}
+		}
+		return res;
+	}
 	
 	
 	
