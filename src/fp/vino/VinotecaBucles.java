@@ -134,6 +134,7 @@ public class VinotecaBucles implements Vinoteca{
 			if(v.region().equals(region)) {
 				if(v.uva().equals(uva)) {
 					res=true;
+					break;
 				}
 			}
 		}
