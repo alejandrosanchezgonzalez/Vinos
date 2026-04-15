@@ -6,8 +6,8 @@ package fp.vinos.test;
  * @reviewed_date 2022-03-10
  */
 
-import fp.vinos.FactoriaVinos;
-import fp.vinos.Vinoteca;
+import fp.vino.FactoriaVinos;
+import fp.vino.Vinoteca;
 
 public class TestFactoriaVinos {
 	

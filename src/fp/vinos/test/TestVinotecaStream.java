@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import fp.vinos.FactoriaVinos;
-import fp.vinos.Vino;
-import fp.vinos.Vinoteca;
-import fp.vinos.VinotecaStream;
-import fp.vinos.Vinoteca;
+import fp.vino.FactoriaVinos;
+import fp.vino.Vino;
+import fp.vino.Vinoteca;
+import fp.vino.VinotecaStream;
+import fp.vino.Vinoteca;
 
 public class TestVinotecaStream {
 
