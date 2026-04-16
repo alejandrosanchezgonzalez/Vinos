@@ -6,8 +6,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.SortedMap;
 
 import fp.utiles.Checkers;
 
@@ -247,6 +249,42 @@ public class VinotecaBucles implements Vinoteca{
 	    }
 		return Vinos.subList(0,n);
 		
+	}
+
+	@Override
+	public Map<String, List<Vino>> agruparVinosPorPais() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Set<String>> agruparUvasPorPais() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, Double> calcularCalidadPrecioPorRegionMayorDe(Integer umbral) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Map<String, String> calcularVinoMasCaroPorPais() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SortedMap<String, List<Vino>> calcularNMejoresVinosPorPais(Integer n) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String calcularRegionConMejoresVinos(Integer umbral) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
