@@ -1,7 +1,11 @@
 package fp.vino;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -139,6 +143,110 @@ public class VinotecaBucles implements Vinoteca{
 			}
 		}
 		return res;
+	}
+
+	@Override
+	public Set<String> calcularUvasDeRegion(String region) {
+		Set<String> uvas= new HashSet<String>();
+		for(Vino v:vinos) {
+			if (v.region().equals(region)){
+				uvas.add(v.uva());
+			}
+		}
+		return uvas;
+	}
+
+	@Override
+	public Integer calcularTotalPuntosVinosDeRegion(String region) {
+		Integer suma=0;
+		for(Vino v:vinos) {
+			if(v.region().equals(region)) {
+				suma=suma + v.puntos();
+				
+			}
+		}
+		return suma;
+		
+	}
+
+	@Override
+	public Integer calcularMediaPuntosVinosDeUva(String uva) {
+		Integer contador=0;
+		Integer puntosTotales=0;
+		for(Vino v:vinos) {
+			if(v.uva().equals(uva)) {
+				contador++;
+				puntosTotales= puntosTotales+v.puntos();
+			}
+		}
+		 if (contador == 0) {
+		        return 0;
+		    }
+		return puntosTotales/contador;
+		
+	}
+
+	@Override
+	//TODO
+	public Vino obtenerVinoMejorPuntuado() {
+		Integer puntuacion=0;
+		List<Vino> Vinos=new ArrayList<Vino>();
+		for(Vino v:vinos) {
+			if(v.puntos()>puntuacion) {
+				puntuacion=v.puntos();
+				Vinos.clear();
+				Vinos.add(v);
+			}
+		}
+		if (Vinos.isEmpty()) {
+	        return null;
+	    }
+		return Vinos.get(Vinos.size()-1);
+	}
+
+	@Override
+	public Vino obtenerVinoMejorPuntuadoDePais(String pais) {
+		Integer puntuacion=0;
+		List<Vino> Vinos=new ArrayList<Vino>();
+		for(Vino v:vinos) {
+			if(v.pais().equals(pais)) {
+				if(puntuacion<v.puntos()) {
+					puntuacion=v.puntos();
+					Vinos.clear();
+					Vinos.add(v);
+					
+				}
+			}
+			
+			}
+		if(Vinos.isEmpty()) {
+			return null;
+		}
+		
+		return Vinos.get(Vinos.size()-1);
+
+	}
+
+	@Override
+	public List<Vino> obtenernVinosRegionOrdenadosPrecio(String region,Integer n) {
+		List<Vino> Vinos=new ArrayList<Vino>();
+		for (Vino v:vinos) {
+			if(v.region().equals(region)) {
+				Vinos.add(v);
+			}
+		}
+		Collections.sort(Vinos, new Comparator<Vino>() {
+	        @Override
+	        public int compare(Vino v1, Vino v2) {
+	            return Double.compare(v2.precio(), v1.precio());
+	        }
+	    });
+
+		if (n > Vinos.size()) {
+	        n = Vinos.size();
+	    }
+		return Vinos.subList(0,n);
+		
 	}
 	
 	

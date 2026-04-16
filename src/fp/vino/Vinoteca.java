@@ -1,6 +1,7 @@
 package fp.vino;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 //EJERCICIO 2
@@ -12,10 +13,20 @@ public interface Vinoteca {
 	Boolean contieneVino(Vino v);
 	void agregarVinos(Collection<Vino> vinos);
 	Boolean contieneVinos(Collection<Vino> vinos);
+	//4a
 	Integer calcularNumeroVinosDePais(String pais);
 	Collection<Vino> obtenerVinosRangoPuntos(Integer minimoPuntos, Integer maximoPuntos);
 	Integer calcularNumeroDeVinosDePaisConPuntuacionSuperior(String pais, Integer umbralPuntos);
 	Set<Vino> obtenerVinosBaratos(Double precio);
 	Boolean existeVinoDeUvaenRegion(String uva, String region);
+	//4b
+	Set<String> calcularUvasDeRegion(String Region);
+	Integer calcularTotalPuntosVinosDeRegion(String Region);
+	Integer calcularMediaPuntosVinosDeUva(String uva);
+	//4c
+	Vino obtenerVinoMejorPuntuado();
+	Vino obtenerVinoMejorPuntuadoDePais(String pais);
+	List<Vino> obtenernVinosRegionOrdenadosPrecio(String region,Integer n);
+	
 
 }
