@@ -174,7 +174,7 @@ public class VinotecaBucles implements Vinoteca{
 	}
 
 	@Override
-	public Integer calcularMediaPuntosVinosDeUva(String uva) {
+	public Double calcularMediaPuntosVinosDeUva(String uva) {
 		Integer contador=0;
 		Integer puntosTotales=0;
 		for(Vino v:vinos) {
@@ -184,9 +184,9 @@ public class VinotecaBucles implements Vinoteca{
 			}
 		}
 		 if (contador == 0) {
-		        return 0;
+		        return 0.0;
 		    }
-		return puntosTotales/contador;
+		return (double) (puntosTotales/contador);
 		
 	}
 

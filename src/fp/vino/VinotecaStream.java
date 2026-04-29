@@ -82,7 +82,7 @@ private Set<Vino> vinos;
 	}
 
 
-	//APARTADO 4A
+		//APARTADO 4A*************************************************************************************************************************************************
 	@Override
 	public Integer calcularNumeroVinosDePais(String pais) {
 		return (int) vinos.stream().filter(v->v.pais().equals(pais)).count();
@@ -108,25 +108,22 @@ private Set<Vino> vinos;
 	public Boolean existeVinoDeUvaenRegion(String uva, String region) {
 		return vinos.stream().anyMatch(v->v.region().equals(region)&&(v.uva().equals(uva)));
 	}
-
+		//APARTADO 4B*************************************************************************************************************************************************
 	@Override
 	public Set<String> calcularUvasDeRegion(String Region) {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().filter(v->v.region().equals(Region)).map(Vino::uva).collect(Collectors.toSet());
 	}
 
 	@Override
 	public Integer calcularTotalPuntosVinosDeRegion(String Region) {
-		// TODO Auto-generated method stub
-		return null;
+		return (int) vinos.stream().filter(v->v.region().equals(Region)).mapToInt(Vino::puntos).sum();
 	}
 
 	@Override
-	public Integer calcularMediaPuntosVinosDeUva(String uva) {
-		// TODO Auto-generated method stub
-		return null;
+	public Double calcularMediaPuntosVinosDeUva(String uva) {
+		return  vinos.stream().filter(v->v.uva().equals(uva)).mapToInt(Vino::puntos).average().getAsDouble();
 	}
-
+		//APARTADO C*************************************************************************************************************************************************
 	@Override
 	public Vino obtenerVinoMejorPuntuado() {
 		// TODO Auto-generated method stub
@@ -145,6 +142,7 @@ private Set<Vino> vinos;
 		return null;
 	}
 
+	//APARTADO D*************************************************************************************************************************************************
 	@Override
 	public Map<String, List<Vino>> agruparVinosPorPais() {
 		// TODO Auto-generated method stub

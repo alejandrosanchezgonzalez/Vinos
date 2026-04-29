@@ -24,7 +24,7 @@ public interface Vinoteca {
 	//4b
 	Set<String> calcularUvasDeRegion(String Region);
 	Integer calcularTotalPuntosVinosDeRegion(String Region);
-	Integer calcularMediaPuntosVinosDeUva(String uva);
+	Double calcularMediaPuntosVinosDeUva(String uva);
 	//4c
 	Vino obtenerVinoMejorPuntuado();
 	Vino obtenerVinoMejorPuntuadoDePais(String pais);
