@@ -14,7 +14,7 @@ public class VinotecaStream implements Vinoteca{
 	
 private Set<Vino> vinos;
 	
-	public void VinotecasStream() {
+	public  VinotecaStream() {
 		this.vinos=new HashSet<Vino>();
 		
 	}
@@ -71,7 +71,7 @@ private Set<Vino> vinos;
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		VinotecaBucles other = (VinotecaBucles) obj;
+		VinotecaStream other = (VinotecaStream) obj;
 		return Objects.equals(vinos, other.vinos);
 	}
 
@@ -84,8 +84,7 @@ private Set<Vino> vinos;
 	//APARTADO 4A
 	@Override
 	public Integer calcularNumeroVinosDePais(String pais) {
-		// TODO Auto-generated method stub
-		return null;
+		return (int) vinos.stream().filter(v->v.pais().equals(pais)).count();
 	}
 
 	@Override
