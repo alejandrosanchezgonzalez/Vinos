@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
+import java.util.TreeMap;
 
 import fp.utiles.Checkers;
 
@@ -253,42 +255,108 @@ public class VinotecaBucles implements Vinoteca{
 
 	@Override
 	public Map<String, List<Vino>> agruparVinosPorPais() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String,List<Vino>> resultado= new HashMap<>();
+		for (Vino v:vinos) {
+			String pais=v.pais();
+			
+			if(!resultado.containsKey(pais)) {
+				resultado.put(pais, new ArrayList<>());
+			}
+			resultado.get(pais).add(v);
+		}
+		return resultado;
 	}
+
 
 	@Override
 	public Map<String, Set<String>> agruparUvasPorPais() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String,Set<String>> resultado=new HashMap<>();
+		for(Vino v:vinos) {
+			String pais=v.pais();
+			if(!resultado.containsKey(pais)) {
+				resultado.put(pais, new HashSet<>());
+			}
+			resultado.get(pais).add(v.uva());
+		}
+		return resultado;
 	}
 
 	@Override
 	public Map<String, Double> calcularCalidadPrecioPorRegionMayorDe(Integer umbral) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String,Double> resultado=new HashMap<>();
+		for(Vino v:vinos) {
+			String region=v.region();
+			Double relacion=v.puntos()/v.precio();
+			if(relacion>umbral) {
+				if(!resultado.containsKey(region)) {
+					resultado.put(region, 0.0);
+				}
+				resultado.put(region,resultado.get(region)+1);
+			}
+		}
+		return resultado;
+		
 	}
 
 	@Override
-	public Map<String, String> calcularVinoMasCaroPorPais() {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Vino> calcularVinoMasCaroPorPais() {
+		Map<String,Vino> resultado=new HashMap<>();
+		for(Vino v:vinos) {
+			String pais=v.pais();
+			
+			if(!resultado.containsKey(pais)) {
+				resultado.put(pais,v);
+			}else {
+				Vino vinoActual=resultado.get(pais);
+				
+				if(v.precio()>vinoActual.precio()) {
+					resultado.put(pais, v);
+				}
+			}
+		}
+		return resultado;
+		
 	}
 
 	@Override
 	public SortedMap<String, List<Vino>> calcularNMejoresVinosPorPais(Integer n) {
-		// TODO Auto-generated method stub
-		return null;
+		SortedMap<String,List<Vino>> resultado= new TreeMap<>();
+		for(Vino v:vinos) {
+			String pais=v.pais();
+			if(!resultado.containsKey(pais)) {
+				resultado.put(pais,new ArrayList<>());
+			}
+			resultado.get(pais).add(v);
+		}
+		for(String pais:resultado.keySet()) {
+			List<Vino> lista=resultado.get(pais);
+			lista.sort((v1,v2)->v2.puntos().compareTo(v1.puntos()));
+			if(lista.size()>n) {
+				resultado.put(pais,lista.subList(0, n));
+			}
+		}
+		return resultado;
 	}
 
 	@Override
 	public String calcularRegionConMejoresVinos(Integer umbral) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Double> mapa = calcularCalidadPrecioPorRegionMayorDe(umbral);
+		String mejorRegion = null;
+		Double maximo = 0.0;
+		for (String region : mapa.keySet()) {
+			Double cantidad = mapa.get(region);
+
+		        if (cantidad > maximo) {
+		            maximo = cantidad;
+		            mejorRegion = region;
+		        }
+		    }
+
+		    return mejorRegion;
+		}
 	}
 	
 	
 	
 	
 
-}

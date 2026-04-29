@@ -33,7 +33,7 @@ public interface Vinoteca {
 	Map<String,List<Vino>> agruparVinosPorPais();
 	Map<String,Set<String>> agruparUvasPorPais(); 
 	Map<String,Double> calcularCalidadPrecioPorRegionMayorDe(Integer umbral);
-	Map<String,String> calcularVinoMasCaroPorPais();
+	Map<String,Vino> calcularVinoMasCaroPorPais();
 	SortedMap<String,List<Vino>> calcularNMejoresVinosPorPais(Integer n);
 	String calcularRegionConMejoresVinos(Integer umbral);
 	
