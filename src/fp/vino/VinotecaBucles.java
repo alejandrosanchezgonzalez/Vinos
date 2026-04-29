@@ -242,7 +242,7 @@ public class VinotecaBucles implements Vinoteca{
 		Collections.sort(Vinos, new Comparator<Vino>() {
 	        @Override
 	        public int compare(Vino v1, Vino v2) {
-	            return Double.compare(v2.precio(), v1.precio());
+	            return Double.compare(v2.precio(), v1.precio());//res.sort(Comparator.comparing(Vino::precio).reversed());
 	        }
 	    });
 
