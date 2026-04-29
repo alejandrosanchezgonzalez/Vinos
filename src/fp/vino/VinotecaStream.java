@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
+import java.util.stream.Collectors;
 
 import fp.utiles.Checkers;
 
@@ -89,26 +90,23 @@ private Set<Vino> vinos;
 
 	@Override
 	public Collection<Vino> obtenerVinosRangoPuntos(Integer minimoPuntos, Integer maximoPuntos) {
-		// TODO Auto-generated method stub
-		return null;
+		Checkers.check("el limite inferior debe ser menor o igual al superior",minimoPuntos<=maximoPuntos);
+		return vinos.stream().filter(v->minimoPuntos<=v.puntos()&&(v.puntos()<=maximoPuntos)).toList();
 	}
 
 	@Override
 	public Integer calcularNumeroDeVinosDePaisConPuntuacionSuperior(String pais, Integer umbralPuntos) {
-		// TODO Auto-generated method stub
-		return null;
+		return (int)vinos.stream().filter(v->v.pais().equals(pais)&&(v.puntos()>umbralPuntos)).count();
 	}
 
 	@Override
 	public Set<Vino> obtenerVinosBaratos(Double precio) {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().filter(v->v.precio()<precio).collect(Collectors.toSet());
 	}
 
 	@Override
 	public Boolean existeVinoDeUvaenRegion(String uva, String region) {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().anyMatch(v->v.region().equals(region)&&(v.uva().equals(uva)));
 	}
 
 	@Override
