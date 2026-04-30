@@ -1,6 +1,7 @@
 package fp.vino;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -121,25 +122,22 @@ private Set<Vino> vinos;
 
 	@Override
 	public Double calcularMediaPuntosVinosDeUva(String uva) {
-		return  vinos.stream().filter(v->v.uva().equals(uva)).mapToInt(Vino::puntos).average().getAsDouble();
+		return  vinos.stream().filter(v->v.uva().equals(uva)).mapToInt(Vino::puntos).average().orElse(0.0);
 	}
 		//APARTADO C*************************************************************************************************************************************************
 	@Override
 	public Vino obtenerVinoMejorPuntuado() {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().max(Comparator.comparing(Vino::puntos)).get();
 	}
 
 	@Override
 	public Vino obtenerVinoMejorPuntuadoDePais(String pais) {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().filter(v->v.pais().equals(pais)).max(Comparator.comparing(Vino::puntos)).get();
 	}
 
 	@Override
 	public List<Vino> obtenernVinosRegionOrdenadosPrecio(String region, Integer n) {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().filter(v->v.region().equals(region)).sorted(Comparator.comparing(Vino::precio).reversed()).limit(n).toList();
 	}
 
 	//APARTADO D*************************************************************************************************************************************************
