@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.stream.Collectors;
@@ -143,26 +144,22 @@ private Set<Vino> vinos;
 	//APARTADO D*************************************************************************************************************************************************
 	@Override
 	public Map<String, List<Vino>> agruparVinosPorPais() {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().collect(Collectors.groupingBy(Vino::pais));
 	}
 
 	@Override
 	public Map<String, Set<String>> agruparUvasPorPais() {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().collect(Collectors.groupingBy(Vino::pais,Collectors.mapping(Vino::uva,Collectors.toSet())));
 	}
 
 	@Override
-	public Map<String, Double> calcularCalidadPrecioPorRegionMayorDe(Integer umbral) {
-		// TODO Auto-generated method stub
-		return null;
+	public Map<String, Long> calcularCalidadPrecioPorRegionMayorDe(Integer umbral) {
+		return vinos.stream().filter(v->(double)v.puntos()/v.precio()>umbral).collect(Collectors.groupingBy(Vino::region,Collectors.counting()));
 	}
 
 	@Override
 	public Map<String, Vino> calcularVinoMasCaroPorPais() {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().collect(Collectors.groupingBy(Vino::pais,Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(Vino::precio)),Optional::get)));
 	}
 
 	@Override

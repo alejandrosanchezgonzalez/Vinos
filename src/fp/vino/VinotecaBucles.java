@@ -282,14 +282,14 @@ public class VinotecaBucles implements Vinoteca{
 	}
 
 	@Override
-	public Map<String, Double> calcularCalidadPrecioPorRegionMayorDe(Integer umbral) {
-		Map<String,Double> resultado=new HashMap<>();
+	public Map<String, Long> calcularCalidadPrecioPorRegionMayorDe(Integer umbral) {
+		Map<String,Long> resultado=new HashMap<>();
 		for(Vino v:vinos) {
 			String region=v.region();
 			Double relacion=v.puntos()/v.precio();
 			if(relacion>umbral) {
 				if(!resultado.containsKey(region)) {
-					resultado.put(region, 0.0);
+					resultado.put(region, (long) 0);
 				}
 				resultado.put(region,resultado.get(region)+1);
 			}
@@ -340,11 +340,11 @@ public class VinotecaBucles implements Vinoteca{
 
 	@Override
 	public String calcularRegionConMejoresVinos(Integer umbral) {
-		Map<String, Double> mapa = calcularCalidadPrecioPorRegionMayorDe(umbral);
+		Map<String, Long> mapa = calcularCalidadPrecioPorRegionMayorDe(umbral);
 		String mejorRegion = null;
-		Double maximo = 0.0;
+		Long maximo = (long)0;
 		for (String region : mapa.keySet()) {
-			Double cantidad = mapa.get(region);
+			Long cantidad = mapa.get(region);
 
 		        if (cantidad > maximo) {
 		            maximo = cantidad;
