@@ -152,7 +152,7 @@ public class TestVinotecaBucles {
 		System.out.println("\nTEST de calcularNumeroVinosDePais");
 		try {
 			System.out.println(String.format("\tHay %d  vinos de %s: ",
-					                 vinos.calcularNumeroVinosPais(pais), pais));
+					                 vinos.calcularNumeroVinosDePais(pais), pais));
 		} catch (Exception e) {
 			System.out.println("Excepción inesperada capturada:\n   " + e);
 		}
@@ -175,7 +175,7 @@ public class TestVinotecaBucles {
 		System.out.println("\nTEST de calcularNumeroVinosDePaisConPuntuacionSuperior");
 		try {
 			System.out.println(String.format("\tHay %d  vinos del pais %s con puntuación superior a %d: ",
-					                 vinos.calcularNumeroVinosDePaisConPuntuacionSuperior(pais, umbralPuntuacion), 
+					                 vinos.calcularNumeroDeVinosDePaisConPuntuacionSuperior(pais, umbralPuntuacion), 
 					                 pais, umbralPuntuacion));
 		} catch (Exception e) {
 			System.out.println("Excepción inesperada capturada:\n   " + e);
@@ -198,7 +198,7 @@ public class TestVinotecaBucles {
 		System.out.println("\nTEST de existeVinoDeUvaEnRegion");
 		try {
 			String msg = String.format("\t¿Hay algún vino de la uva %s en la región %s? %s",
-					uva, region, vinos.existeVinoDeUvaEnRegion(uva, region));
+					uva, region, vinos.existeVinoDeUvaenRegion(uva, region));
 			System.out.println(msg);
 		} catch (Exception e) {
 			System.out.println("Excepción inesperada capturada:\n   " + e);
@@ -268,7 +268,7 @@ public class TestVinotecaBucles {
 		try {
 			String msg = String.format("\tLos %d vinos más caros de la región %s son", n, region);
 			System.out.println(msg);
-			mostrarColeccion(vinos.obtenerNVinosRegionOrdenadosPrecio(region, n));
+			mostrarColeccion(vinos.obtenernVinosRegionOrdenadosPrecio(region, n));
 		} catch (Exception e) {
 			System.out.println("Excepción inesperada capturada:\n   " + e);
 		}

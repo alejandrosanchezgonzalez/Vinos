@@ -154,7 +154,7 @@ private Set<Vino> vinos;
 	}
 
 	@Override
-	public Map<String, Long> calcularCalidadPrecioPorRegionMayorDe(Integer umbral) {
+	public Map<String, Long> calcularCalidadPrecioPorRegionMayorDe(Double umbral) {
 		return vinos.stream().filter(v->(double)v.puntos()/v.precio()>umbral).collect(Collectors.groupingBy(Vino::region,Collectors.counting()));
 	}
 
@@ -170,7 +170,7 @@ private Set<Vino> vinos;
 	}
 
 	@Override
-	public String calcularRegionConMejoresVinos(Integer umbral) {
+	public String calcularRegionConMejoresVinos(Double umbral) {
 		return calcularCalidadPrecioPorRegionMayorDe(umbral).entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
 	}
 
