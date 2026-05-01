@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import fp.utiles.Checkers;
@@ -164,14 +165,13 @@ private Set<Vino> vinos;
 
 	@Override
 	public SortedMap<String, List<Vino>> calcularNMejoresVinosPorPais(Integer n) {
-		// TODO Auto-generated method stub
-		return null;
+		return vinos.stream().collect(Collectors.groupingBy(Vino::pais,TreeMap::new,Collectors.collectingAndThen(Collectors.toList(),lista->lista.stream().sorted(Comparator.comparing(Vino::puntos).reversed()).limit(n).collect(Collectors.toList()))));
+
 	}
 
 	@Override
 	public String calcularRegionConMejoresVinos(Integer umbral) {
-		// TODO Auto-generated method stub
-		return null;
+		return calcularCalidadPrecioPorRegionMayorDe(umbral).entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
 	}
 
 }
