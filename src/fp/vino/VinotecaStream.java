@@ -160,7 +160,7 @@ private Set<Vino> vinos;
 
 	@Override
 	public Map<String, Vino> calcularVinoMasCaroPorPais() {
-		return vinos.stream().collect(Collectors.groupingBy(Vino::pais,Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(Vino::precio)),Optional::get)));
+		return vinos.stream().collect(Collectors.groupingBy(Vino::pais,Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(Vino::precio)),opt->opt.orElse(null))));//Optional::get
 	}
 
 	@Override
@@ -171,7 +171,7 @@ private Set<Vino> vinos;
 
 	@Override
 	public String calcularRegionConMejoresVinos(Double umbral) {
-		return calcularCalidadPrecioPorRegionMayorDe(umbral).entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
+		return calcularCalidadPrecioPorRegionMayorDe(umbral).entrySet().stream().max(Map.Entry.comparingByValue()).orElse(null).getKey();
 	}
 
 }
