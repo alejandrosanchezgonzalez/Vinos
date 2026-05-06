@@ -12,60 +12,79 @@ public class VinotecasMetodosStream {
 	
     	// Obtener el vino más caro del catálogo y devolver su país junto con el propio vino. 
 		public static Entry<String, Vino> obtenerPaisConVinoMasCaro(List<Vino> vinos) {
-
-			// TODO
-			return null;
+			return vinos.stream().max(Comparator.comparing(Vino::precio)).map(v->Map.entry(v.pais(),v)).orElse(null);
+																		//***
+			
 		}
 	 
 		// Obtener el Top N de regiones de un país dado, ordenadas por puntuación media, considerando solo
 		// los vinos cuya puntuación supere un umbral mínimo.
 		public static List<Entry<String, Double>> obtenerNRegionesPaisPorPuntuacionMedia(List<Vino> vinos, String pais,  Integer umbralPuntos,Integer n) {
-			// TODO
-			return null;
+			return vinos.stream().filter(v->v.pais().equals(pais)&&v.puntos()>umbralPuntos).collect(Collectors.groupingBy(
+					Vino::region,Collectors.averagingInt(Vino::puntos))).entrySet().stream().sorted(Entry.comparingByValue(Comparator.reverseOrder())).limit(n).toList();
+																		//***
 		}
 
 		// Obtener, para cada país, los N vinos más baratos ordenados por precio ascendente. 
 	   public static Map<String, List<Vino>> obtenerNVinosMasBaratosPorPais(List<Vino> vinos,Integer n) {
+		   return vinos.stream().collect(Collectors.groupingBy(Vino::pais,
+				   											   Collectors.collectingAndThen(Collectors.toList(),
+				   													   						lista->lista.stream().
+				   													   						sorted(Comparator.comparingDouble(Vino::precio)).
+				   													   						limit(n).
+				   													   						toList())));
 
-			// TODO
-			return null;
 		}
 	   
 	   // Crear un mapa de vinos usando como clave una combinación de país y uva ("Pais" + " - " + "Uva"), 
 	   // conservando el vino con mayor puntuación en caso de colisión.
 	   public  static Map<String, Vino> mapearVinoPorPaisYUva(List<Vino> vinos) {
-
-			// TODO
-			return null;
+		   return vinos.stream().collect(Collectors.toMap(v->v.pais()+"-"+v.uva(),
+				   v->v,
+				   (v1,v2)->v1.puntos()>=v2.puntos()?v1:v2));
 	   	}
 
 	   // Crear el mapa de vinos anterior, pero devuelve el resultado ordenado de mayor a menor puntuación.
 	   public static Map<String, Vino> mapearVinoPorPaisYUvaOrdenadoPorPuntos(List<Vino> vinos) {
-
-			// TODO
-			return null;
+		   Map<String,Vino> mapa=mapearVinoPorPaisYUva(vinos);
+		   return mapa.entrySet().stream().sorted(Entry.comparingByValue(Comparator.comparingInt(Vino::puntos).reversed())).collect(Collectors.toMap(Entry::getKey,Entry::getValue,(a,b)->a,LinkedHashMap::new));
+		   																																										//***
+			
 	   }
 
 	   // Calcular, para cada país, un índice (ranking) de calidad/precio definido como la puntuación media 
 	   // dividida entre el precio medio.
 	   public static Map<String, Double> rankingCalidadPrecioPorPais(List<Vino> vinos) {
-		   
-			// TODO
-			return null;
+		   return vinos.stream().collect(Collectors.groupingBy(Vino::pais,
+				   Collectors.collectingAndThen(Collectors.toList(), lista->{
+					   
+					   double puntosMedios=lista.stream().mapToInt(Vino::puntos).average().orElse(0.0);
+					   double precioMedio=lista.stream().mapToDouble(Vino::precio).average().orElse(1.0);
+					   return puntosMedios/precioMedio;
+					   }
+				   )));
 		}
 
 	   // Obtener el ranking anterior, pero ordenado de países de mejor a peor según su índice de calidad/precio.
 	   public static List<Map.Entry<String, Double>> rankingOrdenadoCalidadPrecioPorPais(List<Vino> lista_vinos) {
-
-			// TODO
-			return null;
+		   Map<String,Double> mapa=rankingCalidadPrecioPorPais(lista_vinos);
+		   return mapa.entrySet().stream().sorted(Entry.comparingByValue(Comparator.reverseOrder())).toList();
+		   
+		   
 	     }
 	  
 	   // Mostrar las estadísticas completas de puntuación (cantidad, mínimo, máximo, suma y media) 
 	   // de una región determinada.	   
 	   public static void obtenerEstadisticasDePuntosPorRegion(List<Vino> vinos, String region) {
-
-			// TODO
+		   Map<String,IntSummaryStatistics> estadisticas= vinos.stream().collect(Collectors.groupingBy(Vino::region,Collectors.summarizingInt(Vino::puntos)));
+		   IntSummaryStatistics e=estadisticas.get(region);
+		   
+		   System.out.println("Media: " + e.getAverage());
+		   System.out.println("maximo " + e.getMax());
+		   System.out.println("minimo " + e.getMin());
+		   System.out.println("Cantidda " + e.getCount());
+		   System.out.println("Suma " + e.getSum());
+		   
 	   }
 	   
 	   public static void main(String[] args) {
